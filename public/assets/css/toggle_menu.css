@@ -1,0 +1,39 @@
+.menu__item {
+    background: #5200b7;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 1px;
+  }
+  .menu__item__link {
+    color: #fff;
+    display: block;
+    line-height: 60px;
+    padding: 0 1rem;
+    position: relative;
+  }
+  .menu__item__link:after {
+    background: #33105f;
+    content: '\f067';
+    display: block;
+    font-family: "Font Awesome 5 Free";
+    line-height: 60px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 60px;
+  }
+  .menu__item__link.on:after {
+    content: '\f068';
+  }
+   
+  .submenu {
+    background: #fff;
+    display: none;
+  }
+  .submenu__item {
+    border-bottom: 1px solid #5200b7;
+    color: #222;
+    padding: 1rem;
+  }
