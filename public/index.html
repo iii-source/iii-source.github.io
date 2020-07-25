@@ -2,6 +2,10 @@
   <head>
     <meta charset='utf-8'>
     <title>サンプルページ1</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="assets/js/toggle_menu.js"></script>
+    <script src="assets/js/app.js"></script>
+    <link rel="stylesheet" href="assets/css/toggle_menu.css">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"> 
   </head>
   <body>
@@ -10,15 +14,34 @@
       <i class="fas fa-tag my-gray" fa-2x></i>
       <i class="fas fa-tag my-skyblue"></i>
 
-      <script src="assets/js/app.js"></script>
-      <br>
       <!-- 設計書 -->
-      <!-- CircleCI説明 -->
-      <img src="./assets/img/server_draw.svg" width="550" height="250">
-      <br>
-      <br>
-      <br>
-      <!-- AWS serverless構成図 -->
-      <img src="./assets/img/aws_serverless.svg" width="550" height="250">
+      <ul class="menu">
+        <li class="menu__item">
+            <a class="menu__item__link js-menu__item__link" href="">設計書一覧</a>
+            <ul class="submenu">
+                <li class="submenu__item">
+                    <!-- CircleCI説明 -->
+                    <a href="">CircleCI説明</a>
+                    <br>
+                    <br>
+                    <img src="./assets/img/server_draw.svg" width="550" height="250">
+                </li>
+                <li class="submenu__item">
+                    <!-- AWS serverless構成図 -->
+                    <a href="">AWS serverless構成図</a>
+                    <br>
+                    <img src="./assets/img/aws_serverless.svg" width="550" height="250">
+                </li>
+                <li class="submenu__item">
+                    <a href="">サブメニュー3</a>
+                </li>
+                <li class="submenu__item">
+                    <a href="">サブメニュー4</a>
+                </li>
+            </ul>
+        </li>
+        ※以下省略
+    </ul>
+      
   </body>
 </html>
