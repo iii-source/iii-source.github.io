@@ -6,4 +6,12 @@ $(function(){
             return false;
         });
     });
+
+  // 子メニュー処理
+  $('li').click(function(e) {
+    // メニュー表示/非表示
+    $(this).children('ul').slideToggle('fast');
+    e.stopPropagation();
+  });
+
 });
