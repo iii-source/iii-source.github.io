@@ -12,3 +12,5 @@
   - ソースコード
  - https://iii-source.github.io/public/
    - 設計書やイメージ画像など公開してます。
+ - https://iii-source.github.io/public/swagger_ui/tweet_news/docs/dist/
+   - twitter-news-information-gatheringのAPI設計書を公開してます。
