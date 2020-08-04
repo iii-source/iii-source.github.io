@@ -1,24 +1,248 @@
 swagger: '2.0'
 info:
   version: 1.0.0
-  title: タイトル
+  title: twitter-news-information-gathering
+  description: "Twitter上にある任意のニュースを取得し蓄積しておくAPI。
+  また、好きなタイミングで蓄積したニュースを取得することが可能です。"
+tags:
+- name: "user"
+  description: "ユーザー情報の操作"
+- name: "news"
+  description: "ニュース情報の操作"  
 paths:
-  '/user/{id}':
-    get:
-      description: ユーザー情報取得
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "ユーザーを作成します。"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+      - "application/xml"
+      - "application/json"
       parameters:
-      - name: id
+      - in: "body"
+        name: "body"
+        description: "Created user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "successful operation"
+  /user/login:
+    get:
+      tags:
+      - "user"
+      summary: "システムにログインします。"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "The user name for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        "400":
+          description: "Invalid username/password supplied"
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "現在ログインしているユーザーセッションをログアウトします。"
+      description: ""
+      operationId: "logoutUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+  /user/{username}:
+    get:
+      tags:
+      - "user"
+      summary: "ユーザー名を指定して取得します。"
+      description: ""
+      operationId: "getUserByName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+    put:
+      tags:
+      - "user"
+      summary: "ユーザー情報を更新します。"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "name that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "400":
+          description: "Invalid user supplied"
+        "404":
+          description: "User not found"
+    delete:
+      tags:
+      - "user"
+      summary: "ユーザー情報を削除します。"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+  '/news/{newsid}':
+    get:
+      tags:
+      - "news"
+      summary: "ニュース情報を取得します。"
+      description: newsidを指定し情報を取得します
+      parameters:
+      - name: newsid
         in: path
-        description: user id
+        description: news id
         required: true
         type: number
       responses:
         '200':
-          description: 成功
+          description: '200'
           schema:
             type: object
             properties:
-              id:
+              newsid:
                 type: integer
+              news_date:
+                type: string
+              url:
+                type: string
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "newsid not found"
+    delete:
+      tags:
+      - "news"
+      summary: "ニュース情報を削除します。"
+      description: ユーザー情報取得
+      parameters:
+      - name: newsid
+        in: path
+        description: news id
+        required: true
+        type: number
+      responses:
+        '200':
+          description: '200'
+          schema:
+            type: object
+            properties:
+              newsid:
+                type: integer
+              news_date:
+                type: string
               username:
                 type: string
+        "400":
+         description: "Invalid username supplied"
+        "404":
+          description: "newsid not found"
+
+# TODO 時間があるタイミングで認証機能実装
+# securityDefinitions:
+#   petstore_auth:
+#     type: "oauth2"
+#     authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+#     flow: "implicit"
+#     scopes:
+#       write:pets: "modify pets in your account"
+#       read:pets: "read your pets"
+#   api_key:
+#     type: "apiKey"
+#     name: "api_key"
+#     in: "header"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+    xml:
+      name: "user"
