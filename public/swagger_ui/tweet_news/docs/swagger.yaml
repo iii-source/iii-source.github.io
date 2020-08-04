@@ -15,7 +15,7 @@ paths:
       tags:
       - "user"
       summary: "ユーザーを作成します。"
-      description: "This can only be done by the logged in user."
+      description: "これは、ログインしているユーザーのみが実行できます。"
       operationId: "createUser"
       produces:
       - "application/xml"
@@ -110,7 +110,7 @@ paths:
       tags:
       - "user"
       summary: "ユーザー情報を更新します。"
-      description: "This can only be done by the logged in user."
+      description: "これは、ログインしているユーザーのみが実行できます。"
       operationId: "updateUser"
       produces:
       - "application/xml"
@@ -128,6 +128,8 @@ paths:
         schema:
           $ref: "#/definitions/User"
       responses:
+        '200':
+          description: '200'
         "400":
           description: "Invalid user supplied"
         "404":
@@ -136,7 +138,7 @@ paths:
       tags:
       - "user"
       summary: "ユーザー情報を削除します。"
-      description: "This can only be done by the logged in user."
+      description: "これは、ログインしているユーザーのみが実行できます。"
       operationId: "deleteUser"
       produces:
       - "application/xml"
@@ -148,6 +150,8 @@ paths:
         required: true
         type: "string"
       responses:
+        '200':
+          description: '200'
         "400":
           description: "Invalid username supplied"
         "404":
@@ -157,11 +161,11 @@ paths:
       tags:
       - "news"
       summary: "ニュース情報を取得します。"
-      description: newsidを指定し情報を取得します
+      description: "newsidを指定し情報を取得します"
       parameters:
       - name: newsid
         in: path
-        description: news id
+        description: newsid
         required: true
         type: number
       responses:
@@ -176,6 +180,8 @@ paths:
                 type: string
               url:
                 type: string
+              description:
+                type: string
         "400":
           description: "Invalid username supplied"
         "404":
@@ -184,7 +190,7 @@ paths:
       tags:
       - "news"
       summary: "ニュース情報を削除します。"
-      description: ユーザー情報取得
+      description: "newsidを指定し情報を削除します"
       parameters:
       - name: newsid
         in: path
@@ -192,17 +198,8 @@ paths:
         required: true
         type: number
       responses:
-        '200':
-          description: '200'
-          schema:
-            type: object
-            properties:
-              newsid:
-                type: integer
-              news_date:
-                type: string
-              username:
-                type: string
+        "200":
+          description: "200"
         "400":
          description: "Invalid username supplied"
         "404":
@@ -230,15 +227,7 @@ definitions:
         format: "int64"
       username:
         type: "string"
-      firstName:
-        type: "string"
-      lastName:
-        type: "string"
-      email:
-        type: "string"
       password:
-        type: "string"
-      phone:
         type: "string"
       userStatus:
         type: "integer"
