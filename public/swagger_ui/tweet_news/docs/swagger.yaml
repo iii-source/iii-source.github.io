@@ -186,6 +186,36 @@ paths:
           description: "Invalid username supplied"
         "404":
           description: "newsid not found"
+    put:
+      tags:
+      - "news"
+      summary: "ニュース情報を補足します。"
+      description: "newsidを指定し補足情報を追記します。"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "newsid"
+        in: "path"
+        description: "name that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          type: object
+          properties:
+            description:
+              type: string
+      responses:
+        '200':
+          description: '200'
+        "400":
+          description: "Invalid user supplied"
+        "404":
+          description: "User not found"
     delete:
       tags:
       - "news"
