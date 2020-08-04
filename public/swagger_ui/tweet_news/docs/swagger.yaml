@@ -1,11 +1,11 @@
 swagger: '2.0'
 info:
   version: 1.0.0
-  title: ƒ^ƒCƒgƒ‹
+  title: ã‚¿ã‚¤ãƒˆãƒ«
 paths:
   '/user/{id}':
     get:
-      description: ƒ†[ƒU[î•ñæ“¾
+      description: ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±å–å¾—
       parameters:
       - name: id
         in: path
@@ -14,7 +14,7 @@ paths:
         type: number
       responses:
         '200':
-          description: ¬Œ÷
+          description: æˆåŠŸ
           schema:
             type: object
             properties:
